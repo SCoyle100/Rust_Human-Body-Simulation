@@ -1,14 +1,16 @@
+use crate::indicators::HealthIndicators;
+use crate::ExternalInput;
+
+
+
+// Ensure other necessary imports are here
+
 pub struct Human {
-    indicators: PhysiologicalIndicators,
+    indicators: HealthIndicators,
     current_state: MainState,
 }
 
-pub struct PhysiologicalIndicators {
-    blood_pressure: f32,
-    blood_sugar: f32,
-    // Add more as needed
-}
-
+#[derive(Debug)] 
 pub enum MainState {
     Awake,
     Sleep,
@@ -18,11 +20,8 @@ pub enum MainState {
 impl Human {
     pub fn new() -> Self {
         Human {
-            indicators: PhysiologicalIndicators {
-                blood_pressure: 120.0, // Example default value
-                blood_sugar: 5.0,      // Example default value
-            },
-            current_state: MainState::Awake, // Default state
+            indicators: HealthIndicators::new(), // Use the new HealthIndicators struct
+            current_state: MainState::Awake, // Default state remains unchanged
         }
     }
 
@@ -41,20 +40,9 @@ impl Human {
         &self.current_state
     }
 
-    pub fn indicators(&self) -> &PhysiologicalIndicators {
+    pub fn indicators(&self) -> &HealthIndicators {
         &self.indicators
     }
 }
 
-// Definitions for ExternalInput, etc., would be elsewhere in your module structure
-pub enum ExternalInput {
-    Sunlight(u8),
-    Food(FoodType),
-    // Define others as needed
-}
 
-pub enum FoodType {
-    Healthy,
-    Junk,
-    // Extend according to nutritional models
-}
